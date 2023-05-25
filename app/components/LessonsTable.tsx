@@ -1,5 +1,4 @@
-import { Link } from "@remix-run/react";
-
+import { useState } from "react";
 function LessonType({ type }: { type: string }) {
   let color;
 
@@ -27,75 +26,55 @@ function LessonType({ type }: { type: string }) {
   );
 }
 
-function Row({ item }: { item: any }) {
+function ListItem({ item }: { item: any }) {
+  const [open, setOpen] = useState(false);
   return (
-    <tr>
-      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-        <div className="text-gray-900">{item.title}</div>
-        <div className="mt-1 text-gray-500">{item.description}</div>
-      </td>
-      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-        <LessonType type={item.__component.split(".")[1]} />
-      </td>
-      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-        {item.duration} min
-      </td>
-      <td className="relative whitespace-nowrap py-5 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-        <Link to={"#"} className="text-indigo-600 hover:text-indigo-900">
-          View<span className="sr-only">, {item.name}</span>
-        </Link>
-      </td>
-    </tr>
+    <li className="py-5">
+      <div className="flex items-center justify-between gap-x-6">
+        <div className="min-w-0">
+          <div className="flex items-start gap-x-3">
+            <p className="text-sm font-semibold leading-6 text-gray-900">
+              {item.title}
+            </p>
+
+            <LessonType type={item.__component.split(".")[1]} />
+          </div>
+          <div className="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+            <p className="truncate">
+              Duration:{" "}
+              <span className="text-violet-500 font-bold">{item.duration}</span>{" "}
+              min
+            </p>
+          </div>
+          <p className="mt-1 text-gray-500">{item.description}</p>
+        </div>
+        <div className="flex flex-none items-center gap-x-4">
+          <button
+            className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
+            onClick={() => setOpen((prevState) => !prevState)}
+          >
+            {open ? "hide" : 'show'}<span className="sr-only">,{open ? "hide" : 'show'}</span>
+          </button>
+        </div>
+      </div>
+
+      {open && <div className="py-6">
+        <p>{item.notes}</p>
+      </div>}
+    </li>
   );
+}
+
+function classNames(...classes: any[]) {
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function LessonsTable({ outline }: { outline: any[] }) {
-  if (outline.length == 0) return <p>no lessons found</p>;
   return (
-    <div className="px-4 sm:px-6 lg:px-8">
-      <div className="mt-8 flow-root">
-        <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-            <table className="min-w-full divide-y divide-gray-300">
-              <thead>
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
-                    Lesson
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
-                    Type
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
-                    Duration
-                  </th>
-                  <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                    <span className="sr-only">View</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200 bg-white">
-                {outline.map((item, index) => (
-                  <Row key={index} item={item} />
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+    <ul className="divide-y divide-gray-100">
+      {outline.map((item, index) => (
+        <ListItem key={index} item={item} />
+      ))}
+    </ul>
   );
 }
-
-// <td className="max-w-0 py-5 pl-4 pr-3 text-sm sm:pl-0">
-// <div className="font-medium text-gray-900">{project.name}</div>
-// <div className="mt-1 truncate text-gray-500">{project.description}</div>
-// </td>

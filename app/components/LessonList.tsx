@@ -1,6 +1,5 @@
 import { Link } from '@remix-run/react'
 import { AcademicCapIcon } from "@heroicons/react/24/outline";
-
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }

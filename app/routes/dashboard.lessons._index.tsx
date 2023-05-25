@@ -12,5 +12,5 @@ export default function LessonRouteRoute() {
   const data = useLoaderData();
   if (!data) return <h2>no data</h2>;
   const { data: lessons } = data;
-  return <LessonList data={lessons} />;
+  return <LessonList data={lessons} />
 }
