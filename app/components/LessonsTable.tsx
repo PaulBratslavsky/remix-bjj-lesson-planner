@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 function LessonType({ type }: { type: string }) {
   let color;
 
@@ -50,10 +51,10 @@ function ListItem({ item }: { item: any }) {
         </div>
         <div className="flex flex-none items-center gap-x-4">
           <button
-            className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
+            className="rounded-md bg-white px-2.5 py-1.5 text-sm font-bold text-gray-violet shadow-sm ring-1 ring-inset ring-violet-300 hover:bg-violet-50 sm:block"
             onClick={() => setOpen((prevState) => !prevState)}
           >
-            {open ? "hide" : 'show'}<span className="sr-only">,{open ? "hide" : 'show'}</span>
+            {open ? "-" : '+'}<span className="sr-only">,{open ? "hide" : 'show'}</span>
           </button>
         </div>
       </div>
@@ -63,10 +64,6 @@ function ListItem({ item }: { item: any }) {
       </div>}
     </li>
   );
-}
-
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(" ");
 }
 
 export default function LessonsTable({ outline }: { outline: any[] }) {
