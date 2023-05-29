@@ -9,23 +9,23 @@
 
 /* Headers */
 .rich-text article  h1 {
-  @apply text-4xl font-bold mb-4 text-violet-400;
+  @apply text-4xl font-bold mb-4 text-violet-600;
 }
 
 .rich-text article  h2 {
-  @apply text-3xl font-bold mb-4 text-violet-400;
+  @apply text-3xl font-bold mb-4 text-violet-600;
 }
 
 .rich-text article  h3 {
-  @apply text-2xl font-bold mb-4 text-violet-400;
+  @apply text-2xl font-bold mb-4 text-violet-600;
 }
 
 .rich-text article  h4 {
-  @apply text-xl font-bold mb-4 text-violet-400;
+  @apply text-xl font-bold mb-4 text-violet-600;
 }
 
 .rich-text article  h5 {
-  @apply text-lg font-bold mb-4 text-violet-400;
+  @apply text-lg font-bold mb-4 text-violet-600;
 }
 
 .rich-text article  h6 {
@@ -38,7 +38,7 @@
 }
 
 .rich-text article  a {
-  @apply text-violet-400 underline;
+  @apply text-violet-600 underline;
 }
 
 /* Typographic replacements */

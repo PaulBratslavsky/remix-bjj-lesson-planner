@@ -1,22 +1,29 @@
 import type { V2_MetaFunction } from "@remix-run/node";
+import { useLoaderData, Link } from "@remix-run/react";
+import { json } from "@remix-run/node";
+import { fetchStrapiData } from "~/api/fetch-strapi-data.server";
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "New Remix App" }];
 };
+
+export async function loader() {
+  const lessonsResponse = await fetchStrapiData("/lessons");
+  const lessons = lessonsResponse.data.length
+
+  return json({
+    lessons
+  });
+}
 
 const links = [
   { name: 'Dashboard', href: '/dashboard' },
   { name: 'Lessons', href: '/dashboard/lessons' },
 ]
 
-const stats = [
-  { name: 'Classes', value: '12' },
-  { name: 'Drills', value: '50+' },
-  { name: 'Lessons', value: '100+' },
-  { name: 'Training', value: '100+' },
-]
-
 export default function Index() {
+  const data = useLoaderData();
+  if (!data) return <h2>no data</h2>;
   return (
     <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32 min-h-screen">
       <img
@@ -62,18 +69,24 @@ export default function Index() {
         <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
             {links.map((link) => (
-              <a key={link.name} href={link.href}>
+              <Link key={link.name} to={link.href}>
                 {link.name} <span aria-hidden="true">&rarr;</span>
-              </a>
+              </Link>
             ))}
           </div>
           <dl className="mt-16 grid grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.name} className="flex flex-col-reverse">
-                <dt className="text-base leading-7 text-gray-300">{stat.name}</dt>
-                <dd className="text-2xl font-bold leading-9 tracking-tight text-white">{stat.value}</dd>
+              <div className="flex flex-col-reverse">
+                <dt className="text-base leading-7 text-gray-300">Lessons</dt>
+                <dd className="text-2xl font-bold leading-9 tracking-tight text-white">{data.lessons}</dd>
               </div>
-            ))}
+              <div className="flex flex-col-reverse">
+                <dt className="text-base leading-7 text-gray-300">Techniques</dt>
+                <dd className="text-2xl font-bold leading-9 tracking-tight text-white">{0}</dd>
+              </div>
+              <div className="flex flex-col-reverse">
+                <dt className="text-base leading-7 text-gray-300">Drills</dt>
+                <dd className="text-2xl font-bold leading-9 tracking-tight text-white">{0}</dd>
+              </div>
           </dl>
         </div>
       </div>

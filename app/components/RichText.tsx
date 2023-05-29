@@ -15,7 +15,7 @@ export default function Markdown({
   config?: any;
 }) {
   return (
-    <div className="my-6 p-4 rounded-lg rich-text py-6 bg-gray-900 text-gray-50 ">
+    <div className="my-6 p-4 rounded-lg rich-text py-6 text-gray-900 bg-white ">
       {renderers.react(markdown(data, config), React)}
     </div>
   );

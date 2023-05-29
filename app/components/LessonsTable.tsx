@@ -1,4 +1,5 @@
 import { useState } from "react";
+import RichText from "./RichText";
 
 function LessonType({ type }: { type: string }) {
   let color;
@@ -62,7 +63,7 @@ function ListItem({ item }: { item: any }) {
 
       {open && (
         <div className="py-6">
-          <p>{item.notes}</p>
+          <RichText data={item.notes} />
         </div>
       )}
     </li>
