@@ -54,14 +54,17 @@ function ListItem({ item }: { item: any }) {
             className="rounded-md bg-white px-2.5 py-1.5 text-sm font-bold text-gray-violet shadow-sm ring-1 ring-inset ring-violet-300 hover:bg-violet-50 sm:block"
             onClick={() => setOpen((prevState) => !prevState)}
           >
-            {open ? "-" : '+'}<span className="sr-only">,{open ? "hide" : 'show'}</span>
+            {open ? "-" : "+"}
+            <span className="sr-only">,{open ? "hide" : "show"}</span>
           </button>
         </div>
       </div>
 
-      {open && <div className="py-6">
-        <p>{item.notes}</p>
-      </div>}
+      {open && (
+        <div className="py-6">
+          <p>{item.notes}</p>
+        </div>
+      )}
     </li>
   );
 }

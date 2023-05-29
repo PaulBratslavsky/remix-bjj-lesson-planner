@@ -1,10 +1,10 @@
 import { Link } from "@remix-run/react";
 import { formatDate } from "~/utils/api-helpers";
-import { outlineRenderer } from "~/utils/outline-renderer";
-import LessonsTable
- from "./LessonsTable";
+import RichText from "~/components/RichText";
+import LessonsTable from "./LessonsTable";
+import Accordion from "./Accordion";
 export default function LessonView({ data }: { data: any }) {
-  const { title, description, publishedAt, outline } = data.data.attributes;
+  const { title, description, publishedAt, outline, notes } = data.data.attributes;
   return (
     <div className="">
       <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
@@ -18,6 +18,9 @@ export default function LessonView({ data }: { data: any }) {
           <div>
             <p>{description} </p>
           </div>
+          <Accordion title="Lesson Notes">
+            <RichText data={notes} />
+          </Accordion>
         </div>
         <div className="mt-10 flex">
           <Link
@@ -27,7 +30,7 @@ export default function LessonView({ data }: { data: any }) {
             Back To Lessons
           </Link>
         </div>
-      </div>   
+      </div>
       <LessonsTable outline={outline} />
     </div>
   );
