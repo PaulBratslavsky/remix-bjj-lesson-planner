@@ -19,7 +19,7 @@ export default function LessonView({ data }: { data: any }) {
             <p>{description} </p>
           </div>
           <Accordion title="Lesson Notes">
-            <RichText data={notes} />
+            { notes && <RichText data={notes} /> }
           </Accordion>
         </div>
         <div className="mt-10 flex">
